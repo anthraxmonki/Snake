@@ -24,16 +24,42 @@ namespace Snake
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Rectangle rScreenSize;
+
         SpriteFont fKootenay;
 
 
-
-        Sprite oSnakeSprite;
-
+        Texture2D tGameStateEnd;
 
 
 
-        Rectangle rScreenSize;
+        //Sprite oSnakeSprite;
+        Snake oSnake;
+
+
+
+
+        CollisionDetector oCollisionDetector;
+
+
+
+
+
+
+
+
+
+        public GameState mCurrentGameState;
+        public enum GameState
+        {
+            ContinueToRunGame,
+            EndGame
+        }
+
+
+
+
+
 
 
 
@@ -64,28 +90,19 @@ namespace Snake
         protected override void Initialize()
         {
 
-
             IsMouseVisible = true;
 
+            mCurrentGameState = GameState.ContinueToRunGame;
 
-
-            //
-
-
-
-
-
-
-
-            oSnakeSprite = new Sprite();
+            oCollisionDetector = new CollisionDetector();
+            oCollisionDetector.ScreenSize(rScreenSize);
+            oCollisionDetector.SetGameState(mCurrentGameState);
 
 
 
 
 
-
-
-
+            oSnake = new Snake();
 
 
 
@@ -105,11 +122,12 @@ namespace Snake
 
             fKootenay = Content.Load<SpriteFont>("fKootenay");
 
+            tGameStateEnd = Content.Load<Texture2D>("EndGameScreen");
 
 
 
-            oSnakeSprite.LoadContent(this.Content, "SnakeSegment", 1.0f);
-
+            //oSnakeSprite.LoadContent(this.Content, "SnakeSegment", 1.0f);
+            oSnake.LoadContent(this.Content, "SnakeSegment", 1.0f);
 
 
 
@@ -153,12 +171,40 @@ namespace Snake
                 this.Exit();
 
 
-            oSnakeSprite.Update(gameTime);
+
+
+
+            oSnake.Update(gameTime);
 
 
 
 
 
+            mCurrentGameState = oCollisionDetector.Update(mCurrentGameState, oSnake.rSpriteSource);
+
+
+
+
+
+
+            //if (oCollisionDetector.bScreenCollision == true)
+            //{
+            //    mCurrentGameState = GameState.EndGame;
+            //}
+
+            //this passes and returns the Gamestate
+
+
+
+
+
+
+
+
+
+
+            //this code works
+            //mCurrentGameState = oCollisionDetector.IsScreenCollision(mCurrentGameState);
 
 
 
@@ -178,7 +224,7 @@ namespace Snake
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.DarkOliveGreen);
 
             spriteBatch.Begin();
             if (IsMouseVisible == true)
@@ -191,15 +237,32 @@ namespace Snake
 
 
 
+            if (mCurrentGameState == GameState.ContinueToRunGame)
+            {
 
 
-            oSnakeSprite.Draw(spriteBatch);
+                oSnake.Draw(spriteBatch);
+
+
+            }
+
+
+
+ 
+
+
+
+
+
+
+            if (mCurrentGameState == GameState.EndGame)
+            {
+                spriteBatch.Draw(tGameStateEnd, Vector2.Zero, Color.Brown);
+                //spriteBatch.End();
+                //return;
+            }
 
             spriteBatch.End();
-
-
-
-
             base.Draw(gameTime);
         }
 
