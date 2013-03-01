@@ -27,7 +27,11 @@ namespace Snake
 
 
 
-
+        //TO-DO
+        //collision detection of screen sides && snake source rectangle
+        
+        
+        
 
 
 
@@ -62,13 +66,6 @@ namespace Snake
 
 
 
-
-
-
-
-
-
-
         public void IsScreenCollision(Game1.GameState gameState, Rectangle rsnakeSource)
         {
             //if (rSnakeSource.Intersects(rScreenSource) == true)
@@ -78,7 +75,11 @@ namespace Snake
 
 
 
-            if (rsnakeSource.Intersects(rScreenSource))
+            if (rsnakeSource.Intersects  (new Rectangle(0, 0, rScreenSource.Left, rScreenSource.Height))
+                ||rsnakeSource.Intersects(new Rectangle(rScreenSource.Right, 0, rScreenSource.Right, rScreenSource.Height))
+                ||rsnakeSource.Intersects(new Rectangle(0, 0, rScreenSource.Width, rScreenSource.Top))
+                ||rsnakeSource.Intersects(new Rectangle(0, rScreenSource.Bottom, rScreenSource.Width, rScreenSource.Bottom))
+                )
             {       
                 //|| rsnakeSource.Intersects(rScreenSource.Top) == true
                 //|| rsnakeSource.Intersects(rScreenSource.Left) == true
