@@ -90,7 +90,7 @@ namespace Snake
         protected override void Initialize()
         {
 
-            IsMouseVisible = true;
+            //IsMouseVisible = true;
 
             mCurrentGameState = GameState.ContinueToRunGame;
 
@@ -246,6 +246,8 @@ namespace Snake
 
                 oSnake.Draw(spriteBatch);
                 oFood.Draw(spriteBatch);
+                spriteBatch.DrawString(fKootenay, "Snake Food Eaten: " + oFood.iFoodEaten, new Vector2(10, 10), Color.Red);
+
 
             }
 

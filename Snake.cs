@@ -60,28 +60,28 @@ namespace Snake
             //LEFT
             if (mMovingState == MovingState.MovingLeft)
             {
-                v2MovingDirection += new Vector2((int)(-60 * theGameTime.ElapsedGameTime.TotalSeconds), 0);
+                v2MovingDirection += new Vector2((int)(-160 * theGameTime.ElapsedGameTime.TotalSeconds), 0);
             }
 
 
             //RIGHT
             if (mMovingState == MovingState.MovingRight)
             {
-                v2MovingDirection += new Vector2((int)(60 * theGameTime.ElapsedGameTime.TotalSeconds), 0);
+                v2MovingDirection += new Vector2((int)(160 * theGameTime.ElapsedGameTime.TotalSeconds), 0);
             }
 
 
             //UP
             if (mMovingState == MovingState.MovingUp)
             {
-                v2MovingDirection += new Vector2(0, (int)(-60 * theGameTime.ElapsedGameTime.TotalSeconds));
+                v2MovingDirection += new Vector2(0, (int)(-160 * theGameTime.ElapsedGameTime.TotalSeconds));
             }
 
 
             //DOWN
             if (mMovingState == MovingState.MovingDown)
             {
-                v2MovingDirection += new Vector2(0, (int)(60 * theGameTime.ElapsedGameTime.TotalSeconds));
+                v2MovingDirection += new Vector2(0, (int)(160 * theGameTime.ElapsedGameTime.TotalSeconds));
             }
 
         }

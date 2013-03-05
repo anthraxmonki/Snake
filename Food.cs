@@ -16,9 +16,8 @@ namespace Snake
     class Food : Sprite
     {
         int iStartTime = 0;
-        //int iCountDownDifference;
         int iRefreshFood = 3;
-
+        public int iFoodEaten = -1;
 
         int iScreenWidth;
         int iScreenHeight;
@@ -54,7 +53,10 @@ namespace Snake
 
             if (rsnakeSource.Intersects(rSpriteSource) == true)
             {
-                CreateFood();
+                
+                CreateFood();             
+                ReinitializeCountdown(theGameTime);
+                iFoodEaten += 1;
             }
 
 
@@ -110,16 +112,10 @@ namespace Snake
         {
 
 
-
-
-
+ 
 
             base.Draw(theSpriteBatch);
         }
-
-
-
-
 
 
 
