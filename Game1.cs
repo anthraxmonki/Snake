@@ -33,9 +33,9 @@ namespace Snake
 
 
 
-        //Sprite oSnakeSprite;
-        Snake oSnake;
 
+        Snake oSnake;
+        Food   oFood;
 
 
 
@@ -103,7 +103,7 @@ namespace Snake
 
 
             oSnake = new Snake();
-
+            oFood  = new  Food();
 
 
             base.Initialize();
@@ -125,12 +125,14 @@ namespace Snake
             tGameStateEnd = Content.Load<Texture2D>("EndGameScreen");
 
 
-
+            //SnakeSegments are 40x40
             //oSnakeSprite.LoadContent(this.Content, "SnakeSegment", 1.0f);
             oSnake.LoadContent(this.Content, "SnakeSegment", 1.0f);
 
 
 
+            //SnakeFood is 20x20
+            oFood.LoadContent(this.Content, "SnakeFood", 1.0f, rScreenSize.Width, rScreenSize.Height);
 
         }
 
@@ -175,13 +177,14 @@ namespace Snake
 
 
             oSnake.Update(gameTime);
-
+            oFood.Update (gameTime, oSnake.rSpriteSource);
 
 
 
 
             mCurrentGameState = oCollisionDetector.Update(mCurrentGameState, oSnake.rSpriteSource);
-
+            //need to add collision detection for food
+            //mCurrentGameState = oCollisionDetector.Update(mCurrentGameState, oSnake.rSpriteSource);
 
 
 
@@ -242,7 +245,7 @@ namespace Snake
 
 
                 oSnake.Draw(spriteBatch);
-
+                oFood.Draw(spriteBatch);
 
             }
 

@@ -28,12 +28,9 @@ namespace Snake
 
 
         //TO-DO
-        //collision detection of screen sides && snake source rectangle
-        
-        
-        
-
-
+        //create types of collisions
+        //  -food
+        //  -powerup
 
 
         public void ScreenSize(Rectangle rscreenSource)
@@ -47,7 +44,6 @@ namespace Snake
             updatedGameState = initialGameState;
 
         }
-
 
 
 
@@ -81,12 +77,7 @@ namespace Snake
                 ||rsnakeSource.Intersects(new Rectangle(0, rScreenSource.Bottom, rScreenSource.Width, rScreenSource.Bottom))
                 )
             {       
-                //|| rsnakeSource.Intersects(rScreenSource.Top) == true
-                //|| rsnakeSource.Intersects(rScreenSource.Left) == true
-                //|| rsnakeSource.Intersects(rScreenSource.Right) == true)
-
                 updatedGameState = Game1.GameState.EndGame;
-
 
             }
 
