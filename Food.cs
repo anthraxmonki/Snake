@@ -17,7 +17,7 @@ namespace Snake
     {
         int iStartTime = 0;
         int iRefreshFood = 3;
-        public int iFoodEaten = -1;
+        public int iFoodEaten = 0;
 
         int iScreenWidth;
         int iScreenHeight;
@@ -36,7 +36,8 @@ namespace Snake
 
             base.LoadContent(theContentManager, sFileName, fFileScale);
 
-
+            //Reset the food location from the defautl Sprite position
+            CreateFood();
 
         }
 
@@ -53,10 +54,12 @@ namespace Snake
 
             if (rsnakeSource.Intersects(rSpriteSource) == true)
             {
-                
+
                 CreateFood();             
                 ReinitializeCountdown(theGameTime);
                 iFoodEaten += 1;
+
+                Snake.bFoodPelletCollision = true;
             }
 
 

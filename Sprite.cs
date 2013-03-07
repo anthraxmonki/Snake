@@ -23,7 +23,7 @@ namespace Snake
 
 
         //doubles as v2CurrentPosition
-        protected Vector2 v2MovingDirection;
+        public Vector2 v2MovingDirection;
         //
 
 
