@@ -104,7 +104,6 @@ namespace Snake
 
 
             oSnake = new Snake();
-            //oSnakeSegments = new SnakeSegments();
             oFood  = new  Food();
 
 
@@ -127,12 +126,8 @@ namespace Snake
             tGameStateEnd = Content.Load<Texture2D>("EndGameScreen");
 
 
-            //SnakeSegments are 40x40
-            //oSnakeSprite.LoadContent(this.Content, "SnakeSegment", 1.0f);
+ 
             oSnake.LoadContent(this.Content, "SnakeSegment", 1.0f);
-
-
-
             //SnakeFood is 20x20
             oFood.LoadContent(this.Content, "SnakeFood", 1.0f, rScreenSize.Width, rScreenSize.Height);
 
@@ -176,45 +171,14 @@ namespace Snake
 
 
 
-
-
             oSnake.Update(gameTime);
             oFood.Update (gameTime, oSnake.rSpriteSource);
 
 
-
-
-            mCurrentGameState = oCollisionDetector.Update(mCurrentGameState, oSnake.rSpriteSource);
-
-
-
-            //need to add collision detection for food
             //mCurrentGameState = oCollisionDetector.Update(mCurrentGameState, oSnake.rSpriteSource);
-
-
-
-
-
-            //if (oCollisionDetector.bScreenCollision == true)
-            //{
-            //    mCurrentGameState = GameState.EndGame;
-            //}
-
-            //this passes and returns the Gamestate
-
-
-
-
-
-
-
-
-
-
-            //this code works
-            //mCurrentGameState = oCollisionDetector.IsScreenCollision(mCurrentGameState);
-
-
+            oSnake.v2MovingDirection = oCollisionDetector.IsScreenCollision(oSnake.v2MovingDirection, 
+                oSnake.rSpriteSource,
+                oSnake.lOfTrailingVectors);
 
             base.Update(gameTime);
         }

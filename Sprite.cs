@@ -24,12 +24,7 @@ namespace Snake
 
         //doubles as v2CurrentPosition
         public Vector2 v2MovingDirection;
-        //
-
-
-
-
-
+    
 
 
         public Rectangle rSpriteSize;
@@ -60,7 +55,7 @@ namespace Snake
         {
 
             tSprite = theContentManager.Load<Texture2D>(sSpriteFileName);
-            v2MovingDirection = new Vector2(400 - (tSprite.Width / 2), 300 - (tSprite.Height / 2));
+            v2MovingDirection = new Vector2(360, 280);
             fSpriteScaleSizeSourceGetSet = fscale;
 
         }

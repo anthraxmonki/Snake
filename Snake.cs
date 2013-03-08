@@ -17,12 +17,13 @@ namespace Snake
 
         int iCounter = 0;
         int iReferenceTime = 0;
+        int iSpeed = 0;
 
         Vector2 v2Left  = new Vector2(-40,   0);
         Vector2 v2Right = new Vector2( 40,   0);
         Vector2 v2Up    = new Vector2(  0, -40);
         Vector2 v2Down  = new Vector2(  0,  40);
-        Vector2 v2MovementVector;
+        //Vector2 v2MovementVector;
 
 
 
@@ -30,9 +31,10 @@ namespace Snake
         ContentManager theSnakeSegmentContentManager;
 
         List<MovingState> lOfMovingStates = new List<MovingState>();
-        List<Vector2> lOfTrailingVectors = new List<Vector2>();
+        public List<Vector2> lOfTrailingVectors = new List<Vector2>();
 
         public static bool bFoodPelletCollision = false;
+
 
 
         private MovingState mMovingState;
@@ -78,12 +80,6 @@ namespace Snake
 
 
 
-
-        //
-        //
-        //
-        //
-        //
         public override void Update(GameTime theGameTime)
         {
             KeyboardState ksCurrentState = Keyboard.GetState();
@@ -92,32 +88,13 @@ namespace Snake
             {
                 GrowSnake();
                 bFoodPelletCollision = false;
+                iSpeed += 25;
             }
 
 
             CheckInput(ksCurrentState);
             UpdateMovement(ksCurrentState, theGameTime);
-
-
-
-
-            //this update logic creates the snake's tail
-            int j = (lOfTrailingVectors.Count - lOfSnakeSegments.Count) - 1;
-            for(int i = lOfSnakeSegments.Count- 1; i >= 0; i--)
-            {
-
-                //int j = lOfTrailingVectors.Count - lOfSnakeSegments.Count;
-                lOfSnakeSegments[i].Update(theGameTime, lOfTrailingVectors[j]);
-
-                j++;
-
-
-            }
-
-
-
-
-
+            UpdateTrail(theGameTime);
 
 
             base.Update(theGameTime);
@@ -126,78 +103,49 @@ namespace Snake
 
 
 
-
-
-
-        public void GrowSnake()
+        //takes the furthest vector back
+        //    that is relevant to the trail
+        //Then iterate backwards through each tail segment sprite
+        //    and assign each a location.
+        public void UpdateTrail(GameTime theGameTime)
         {
-
-            //if (mMovingState == MovingState.MovingRight)
-            //{
-            //    v2MovementVector = v2Left;
-            //}
-            //else if (mMovingState == MovingState.MovingLeft)
-            //{
-            //    v2MovementVector = v2Right;
-            //} 
-            //else if (mMovingState == MovingState.MovingUp)
-            //{
-            //    v2MovementVector = v2Down;
-            //} 
-            //else if (mMovingState == MovingState.MovingDown)
-            //{
-            //    v2MovementVector = v2Up;
-            //}
-
-
-
-
-                SnakeSegments oSnakeSegment = new SnakeSegments();
-                oSnakeSegment.LoadContent(theSnakeSegmentContentManager, "SnakeSegment", 1.0f);
-
-                lOfSnakeSegments.Add(oSnakeSegment);
-
-
-
-            //if (lOfSnakeSegments.Count >= 1)
-            //{
-            //    SnakeSegments oSnakeSegment = new SnakeSegments();
-
-            //    for(int i = 0; i < lOfSnakeSegments.Count; i++)
-            //    {
-            //        //oSnakeSegment.LoadContent(theSnakeSegmentContentManager, "SnakeSegment", 1.0f,
-            //        //    new Vector2(lOfSnakeSegments[i].v2MovingDirection.X + 100, 10));
-            //        oSnakeSegment.LoadContent(theSnakeSegmentContentManager, "SnakeSegment", 1.0f, v2MovingDirection + v2MovementVector);
-
-
-            //    }
-
-            //    lOfSnakeSegments.Add(oSnakeSegment);
-            //}
-
-            //else
-            //{
-            //    SnakeSegments oSnakeSegment = new SnakeSegments();
-            //    oSnakeSegment.LoadContent(theSnakeSegmentContentManager, "SnakeSegment", 1.0f,
-            //        (v2MovingDirection + v2MovementVector));
-
-            //    lOfSnakeSegments.Add(oSnakeSegment);
-            //}
-
+            int j = (lOfTrailingVectors.Count - lOfSnakeSegments.Count) - 1;
+            for (int i = lOfSnakeSegments.Count - 1; i >= 0; i--)
+            {
+                lOfSnakeSegments[i].UpdateSnakeSegmentTrail(theGameTime, lOfTrailingVectors[j]);
+                j++;
+            }
         }
 
 
 
 
 
+        //Instantiat a new snakesegment sprite
+        //    add it to a list which si the snakes tail
+        public void GrowSnake()
+        {
+            SnakeSegments oSnakeSegment = new SnakeSegments();
+            oSnakeSegment.LoadContent(theSnakeSegmentContentManager, "SnakeSegment", 1.0f);
+
+            lOfSnakeSegments.Add(oSnakeSegment);
+
+        }
+
+
+
+
+        //Update movement each second
+        //Declare timer variables,
+        //     then move the direction pressed -- use TotalTime vs ElapseTime
+        //
         public void UpdateMovement(KeyboardState currentKeyboardState, GameTime theGameTime)
         {
 
-
-            if (iReferenceTime + iCounter <= theGameTime.TotalGameTime.TotalSeconds)
+            if (iReferenceTime + iCounter - iSpeed <= theGameTime.TotalGameTime.TotalMilliseconds)
             {
-                iCounter = 1;
-                iReferenceTime = (int)theGameTime.TotalGameTime.TotalSeconds;
+                iCounter = 500;
+                iReferenceTime = (int)theGameTime.TotalGameTime.TotalMilliseconds;
 
                 //LEFT
                 if (mMovingState == MovingState.MovingLeft)
@@ -229,38 +177,7 @@ namespace Snake
 
                 lOfTrailingVectors.Add(v2MovingDirection);
 
-
             }
-
-
-
-
-            ////LEFT
-            //if (mMovingState == MovingState.MovingLeft)
-            //{
-            //    v2MovingDirection += new Vector2((int)(-160 * theGameTime.ElapsedGameTime.TotalSeconds), 0);
-            //}
-
-
-            ////RIGHT
-            //if (mMovingState == MovingState.MovingRight)
-            //{
-            //    v2MovingDirection += new Vector2((int)(160 * theGameTime.ElapsedGameTime.TotalSeconds), 0);
-            //}
-
-
-            ////UP
-            //if (mMovingState == MovingState.MovingUp)
-            //{
-            //    v2MovingDirection += new Vector2(0, (int)(-160 * theGameTime.ElapsedGameTime.TotalSeconds));
-            //}
-
-
-            ////DOWN
-            //if (mMovingState == MovingState.MovingDown)
-            //{
-            //    v2MovingDirection += new Vector2(0, (int)(160 * theGameTime.ElapsedGameTime.TotalSeconds));
-            //}
 
         }
 
@@ -271,7 +188,7 @@ namespace Snake
         public void CheckInput(KeyboardState ksCurrentKeyboardState)
         {
 
-
+            //LEFTLEFTLEFTLEFTLEFT
             if (ksCurrentKeyboardState.IsKeyDown(Keys.Left) == true)
             {
                 if (mMovingState == MovingState.MovingRight)
@@ -284,9 +201,6 @@ namespace Snake
                 }
 
             }
-
-
-
 
             //RIGHTRIGHTRIGHTRIGHTRIGHT
             if (ksCurrentKeyboardState.IsKeyDown(Keys.Right) == true)
@@ -302,7 +216,6 @@ namespace Snake
                 }
             }
 
-
             //UPUPUPUPUPUPUPUP
             if (ksCurrentKeyboardState.IsKeyDown(Keys.Up) == true)
             {
@@ -316,7 +229,6 @@ namespace Snake
                     //Update(theGameTime, mMovingState);
                 }
             }
-
 
             //DOWNDOWNDOWNDOWNDOWNDOWN
             if (ksCurrentKeyboardState.IsKeyDown(Keys.Down) == true)

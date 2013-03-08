@@ -36,7 +36,7 @@ namespace Snake
 
             base.LoadContent(theContentManager, sFileName, fFileScale);
 
-            //Reset the food location from the defautl Sprite position
+            //Reset the food location from the default Sprite position
             CreateFood();
 
         }
@@ -81,7 +81,7 @@ namespace Snake
 
         public void ReinitializeCountdown(GameTime theGameTime)
         {
-            iStartTime   = (int)theGameTime.TotalGameTime.Seconds;
+            iStartTime = (int)theGameTime.TotalGameTime.TotalSeconds;
  
         }
 
