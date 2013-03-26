@@ -49,8 +49,6 @@ namespace Snake
 
 
 
-
-
             base.Draw(theSpriteBatch);
         }
 

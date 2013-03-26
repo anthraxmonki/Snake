@@ -162,7 +162,6 @@ namespace Snake
         //Update movement each second
         //Declare timer variables,
         //     then move the direction pressed -- use TotalTime vs ElapseTime
-        //
         public void UpdateMovement(KeyboardState currentKeyboardState, GameTime theGameTime)
         {
 
@@ -198,11 +197,8 @@ namespace Snake
                     v2MovingDirection += new Vector2(0, 40);
                 }
 
-
                 lOfTrailingVectors.Add(v2MovingDirection);
-
             }
-
         }
 
 

@@ -17,7 +17,7 @@ namespace Snake
     {
         int iStartTime = 0;
         int iRefreshFood = 4;
-        public int iFoodEaten = 0;
+        public static int iFoodEaten = 0;
 
         int iScreenWidth;
         int iScreenHeight;
@@ -28,6 +28,8 @@ namespace Snake
         Random oRandomY = new Random();
 
 
+
+
         public void LoadContent(ContentManager theContentManager, string sFileName, float fFileScale, int iscreenWidth, int iscreenHeight)
         {
 
@@ -35,7 +37,10 @@ namespace Snake
             iScreenHeight = iscreenHeight;
 
             base.LoadContent(theContentManager, sFileName, fFileScale);
+            Food oFood = new Food();
+            oFood.LoadContent(theContentManager, sFileName, fFileScale);
 
+ 
             //Reset the food location from the default Sprite position
             CreateFood();
 
@@ -50,17 +55,23 @@ namespace Snake
         public void Update(GameTime theGameTime, Rectangle rsnakeSource)
         {
 
-            //v2MovingPosition is the Current position.
 
+
+
+
+            //v2MovingPosition is the Current position.
             if (rsnakeSource.Intersects(rSpriteSource) == true)
             {
 
-                CreateFood();             
+                CreateFood();
                 ReinitializeCountdown(theGameTime);
                 iFoodEaten += 1;
 
                 Snake.bFoodPelletCollision = true;
             }
+
+
+
 
 
 
@@ -90,11 +101,21 @@ namespace Snake
         {
             //Later we'll need to make sure food is not created on any snake rectangle or obstacle rectangle
             //create a piece of food anywhere on the screen
-            
-            v2MovingDirection = new Vector2(
-                oRandomX.Next(0, (iScreenWidth  - rSpriteSource.Width )),
-                oRandomY.Next(0, (iScreenHeight - rSpriteSource.Height))
-                );
+
+
+
+                v2MovingDirection = new Vector2(
+                    oRandomX.Next(0, (iScreenHeight - rSpriteSource.Width)  ),
+                    oRandomY.Next(0, (iScreenHeight - rSpriteSource.Height) )
+                    );
+
+
+
+
+            //v2MovingDirection = new Vector2(
+            //    oRandomX.Next(0, (iScreenWidth  - rSpriteSource.Width )),
+            //    oRandomY.Next(0, (iScreenHeight - rSpriteSource.Height))
+            //    );
 
             //if(this.rSpriteSource.Intersects(rsnakeSource))
             //{
@@ -113,9 +134,6 @@ namespace Snake
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
-
-
- 
 
             base.Draw(theSpriteBatch);
         }

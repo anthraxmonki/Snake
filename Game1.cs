@@ -215,7 +215,7 @@ namespace Snake
 
                 oSnake.Draw(spriteBatch);
                 oFood.Draw(spriteBatch);
-                spriteBatch.DrawString(fKootenay, "Snake Food Eaten: " + oFood.iFoodEaten, new Vector2(10, 10), Color.Red);
+                spriteBatch.DrawString(fKootenay, "Snake Food Eaten: " + Food.iFoodEaten, new Vector2(10, 10), Color.Red);
                 //spriteBatch.DrawString(fKootenay, "Main  Snake Coordinates: X" + oSnake.v2MovingDirection.X + "  Y" + oSnake.v2MovingDirection.Y, new Vector2(10, 50), Color.Red); 
 
             }
