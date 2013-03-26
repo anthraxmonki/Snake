@@ -18,7 +18,7 @@ namespace Snake
         int iCounter = 0;
         int iReferenceTime = 0;
         int iSpeed = 0;
-
+        const int iSpeedMax = 375;
         Vector2 v2Left  = new Vector2(-40,   0);
         Vector2 v2Right = new Vector2( 40,   0);
         Vector2 v2Up    = new Vector2(  0, -40);
@@ -87,7 +87,10 @@ namespace Snake
             {
                 GrowSnake();
                 bFoodPelletCollision = false;
-                iSpeed += 25;
+                if (iSpeed < iSpeedMax)
+                {
+                    iSpeed += 25;
+                }
             }
 
 
@@ -151,7 +154,6 @@ namespace Snake
             oSnakeSegment.LoadContent(theSnakeSegmentContentManager, "SnakeSegment", 1.0f);
 
             lOfSnakeSegments.Add(oSnakeSegment);
-
         }
 
 

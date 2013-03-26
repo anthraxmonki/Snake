@@ -16,7 +16,7 @@ namespace Snake
     class Food : Sprite
     {
         int iStartTime = 0;
-        int iRefreshFood = 3;
+        int iRefreshFood = 4;
         public int iFoodEaten = 0;
 
         int iScreenWidth;

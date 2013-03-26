@@ -129,7 +129,7 @@ namespace Snake
  
             oSnake.LoadContent(this.Content, "SnakeSegment", 1.0f);
             //SnakeFood is 20x20
-            oFood.LoadContent(this.Content, "SnakeFood", 1.0f, rScreenSize.Width, rScreenSize.Height);
+            oFood.LoadContent(this.Content, "SnakeFood", 1.40f, rScreenSize.Width, rScreenSize.Height);
 
         }
 
@@ -174,7 +174,7 @@ namespace Snake
             oSnake.Update(gameTime);
             oFood.Update (gameTime, oSnake.rSpriteSource);
 
-
+            //Uncomment to EndGame when Snake crosses the screen boundary.
             //mCurrentGameState = oCollisionDetector.Update(mCurrentGameState, oSnake.rSpriteSource);
             oSnake.v2MovingDirection = oCollisionDetector.IsScreenCollision(oSnake.v2MovingDirection, 
                 oSnake.rSpriteSource,
@@ -216,7 +216,7 @@ namespace Snake
                 oSnake.Draw(spriteBatch);
                 oFood.Draw(spriteBatch);
                 spriteBatch.DrawString(fKootenay, "Snake Food Eaten: " + oFood.iFoodEaten, new Vector2(10, 10), Color.Red);
-                spriteBatch.DrawString(fKootenay, "Main  Snake Coordinates: X" + oSnake.v2MovingDirection.X + "  Y" + oSnake.v2MovingDirection.Y, new Vector2(10, 50), Color.Red); 
+                //spriteBatch.DrawString(fKootenay, "Main  Snake Coordinates: X" + oSnake.v2MovingDirection.X + "  Y" + oSnake.v2MovingDirection.Y, new Vector2(10, 50), Color.Red); 
 
             }
 
@@ -232,8 +232,6 @@ namespace Snake
             if (mCurrentGameState == GameState.EndGame)
             {
                 spriteBatch.Draw(tGameStateEnd, Vector2.Zero, Color.Brown);
-                //spriteBatch.End();
-                //return;
             }
 
             spriteBatch.End();
