@@ -23,7 +23,6 @@ namespace Snake
         Vector2 v2Right = new Vector2( 40,   0);
         Vector2 v2Up    = new Vector2(  0, -40);
         Vector2 v2Down  = new Vector2(  0,  40);
-        //Vector2 v2MovementVector;
 
 
 
@@ -95,18 +94,41 @@ namespace Snake
             CheckInput(ksCurrentState);
             UpdateMovement(ksCurrentState, theGameTime);
             UpdateTrail(theGameTime);
-
+            CheckTrailCollision();
 
             base.Update(theGameTime);
         }
 
 
+        //we use lOfsnakeSegments.Count - 2
+        //    because the snake's head updates
+        //    before the tail-end moves,
+        //    resulting in the eating of a tail
+        //    that will be moved out of the way once the tail
+        //    is updated.
+        public void CheckTrailCollision()
+        {
+            for (int i = lOfSnakeSegments.Count - 2; i >= 0; i--)
+            {
+                Vector2 v2TailPositions = lOfSnakeSegments[i].v2MovingDirection;
+                if (v2MovingDirection == v2TailPositions)
+                {
+                    TrailCollisionTrue();
+                }
+            }
+        }
+
+
+        public void TrailCollisionTrue()
+        {
+            Game1.mCurrentGameState = Game1.GameState.EndGame;
+        }
 
 
         //takes the furthest vector back
         //    that is relevant to the trail
         //Then iterate backwards through each tail segment sprite
-        //    and assign each a location.
+        //    and assign each a Vector2 coordinate.
         public void UpdateTrail(GameTime theGameTime)
         {
             int j = (lOfTrailingVectors.Count - lOfSnakeSegments.Count) - 1;

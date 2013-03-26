@@ -21,7 +21,6 @@ namespace Snake
         {
 
             base.LoadContent(theContentManager, sSpriteFileName, fscale);
-           // v2MovingDirection = snakeSegmentPosition;
         }
 
 

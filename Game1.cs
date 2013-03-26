@@ -50,7 +50,7 @@ namespace Snake
 
 
 
-        public GameState mCurrentGameState;
+        public static GameState mCurrentGameState;
         public enum GameState
         {
             ContinueToRunGame,
