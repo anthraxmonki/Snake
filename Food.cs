@@ -23,7 +23,6 @@ namespace Snake
         int iScreenHeight;
 
 
-
         Random oRandomX = new Random();
         Random oRandomY = new Random();
 
@@ -40,7 +39,10 @@ namespace Snake
             Food oFood = new Food();
             oFood.LoadContent(theContentManager, sFileName, fFileScale);
 
- 
+
+
+
+            
             //Reset the food location from the default Sprite position
             CreateFood();
 
@@ -62,18 +64,12 @@ namespace Snake
             //v2MovingPosition is the Current position.
             if (rsnakeSource.Intersects(rSpriteSource) == true)
             {
-
                 CreateFood();
                 ReinitializeCountdown(theGameTime);
                 iFoodEaten += 1;
 
                 Snake.bFoodPelletCollision = true;
             }
-
-
-
-
-
 
 
             if ((iStartTime + iRefreshFood) < (int)theGameTime.TotalGameTime.TotalSeconds)
@@ -95,6 +91,18 @@ namespace Snake
             iStartTime = (int)theGameTime.TotalGameTime.TotalSeconds;
  
         }
+
+
+        public void InitialCreateFood()
+        {
+            Random oRandomTimer = new Random();
+            int iRandomTime = (int)(oRandomTimer.NextDouble() * 100);
+
+
+
+        }
+
+
 
 
         public void CreateFood()

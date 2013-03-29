@@ -36,9 +36,9 @@ namespace Snake
 
         Snake oSnake;
         //SnakeSegments oSnakeSegments;
-        Food   oFood;
-
-
+        Food  oFood1;
+        Food  oFood2;
+        Food  oFood3;
 
         CollisionDetector oCollisionDetector;
 
@@ -104,8 +104,9 @@ namespace Snake
 
 
             oSnake = new Snake();
-            oFood  = new  Food();
-
+            oFood1 = new Food();
+            oFood2 = new Food();
+            oFood3 = new Food();
 
             base.Initialize();
         }
@@ -129,7 +130,9 @@ namespace Snake
  
             oSnake.LoadContent(this.Content, "SnakeSegment", 1.0f);
             //SnakeFood is 20x20
-            oFood.LoadContent(this.Content, "SnakeFood", 1.40f, rScreenSize.Width, rScreenSize.Height);
+            oFood1.LoadContent(this.Content, "SnakeFood", 1.40f, rScreenSize.Width, rScreenSize.Height);
+            oFood2.LoadContent(this.Content, "SnakeFood", 1.20f, rScreenSize.Width, rScreenSize.Height);
+            oFood3.LoadContent(this.Content, "SnakeFood", 1.0f,  rScreenSize.Width, rScreenSize.Height);
 
         }
 
@@ -172,7 +175,10 @@ namespace Snake
 
 
             oSnake.Update(gameTime);
-            oFood.Update (gameTime, oSnake.rSpriteSource);
+            oFood1.Update(gameTime, oSnake.rSpriteSource);
+            oFood2.Update(gameTime, oSnake.rSpriteSource);
+            oFood3.Update(gameTime, oSnake.rSpriteSource);
+
 
             //Uncomment to EndGame when Snake crosses the screen boundary.
             //mCurrentGameState = oCollisionDetector.Update(mCurrentGameState, oSnake.rSpriteSource);
@@ -214,7 +220,9 @@ namespace Snake
 
 
                 oSnake.Draw(spriteBatch);
-                oFood.Draw(spriteBatch);
+                oFood1.Draw(spriteBatch);
+                oFood2.Draw(spriteBatch);
+                oFood3.Draw(spriteBatch);
                 spriteBatch.DrawString(fKootenay, "Snake Food Eaten: " + Food.iFoodEaten, new Vector2(10, 10), Color.Red);
                 //spriteBatch.DrawString(fKootenay, "Main  Snake Coordinates: X" + oSnake.v2MovingDirection.X + "  Y" + oSnake.v2MovingDirection.Y, new Vector2(10, 50), Color.Red); 
 
